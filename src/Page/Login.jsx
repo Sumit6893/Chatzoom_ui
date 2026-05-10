@@ -1,23 +1,34 @@
 import { useState } from "react";
 import Swal from "sweetalert2";
 import { useNavigate, Link } from "react-router-dom";
+import { loginUserApi } from "../api/auth.api";
 
 const Login = () => {
   const navigate = useNavigate();
 
   const [data, setData] = useState({
     email: "",
-    password: ""
+    password: "",
   });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+      const result = await loginUserApi(data);
 
-    const res = await fetch("/api/user/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data)
-    });
+      localStorage.setItem("token", result.token);
+      localStorage.setItem("name", result.name);
+
+      Swal.fire("Success", "Login Done", "success");
+
+      navigate("/dashboard");
+    } catch (error) {
+      Swal.fire(
+        "Error",
+        error.response?.data?.message || "Login Failed",
+        "error",
+      );
+    }
 
     const result = await res.json();
 
@@ -50,9 +61,7 @@ const Login = () => {
             type="email"
             placeholder="Enter your email"
             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-            onChange={(e) =>
-              setData({ ...data, email: e.target.value })
-            }
+            onChange={(e) => setData({ ...data, email: e.target.value })}
             required
           />
         </div>
@@ -64,9 +73,7 @@ const Login = () => {
             type="password"
             placeholder="Enter your password"
             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-            onChange={(e) =>
-              setData({ ...data, password: e.target.value })
-            }
+            onChange={(e) => setData({ ...data, password: e.target.value })}
             required
           />
         </div>

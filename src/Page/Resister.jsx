@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { registerUserApi } from "../api/auth.api";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -7,19 +8,21 @@ const Register = () => {
   const [data, setData] = useState({
     name: "",
     email: "",
-    password: ""
+    password: "",
   });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await fetch("/api/user/register", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data)
-    });
+    try {
+      const result = await registerUserApi(data);
 
-    navigate("/login");
+      console.log("Register success:", result);
+
+      navigate("/login");
+    } catch (error) {
+      alert(error.response?.data?.message || "Registration failed");
+    }
   };
 
   return (
@@ -39,9 +42,7 @@ const Register = () => {
             type="text"
             placeholder="Enter your name"
             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-            onChange={(e) =>
-              setData({ ...data, name: e.target.value })
-            }
+            onChange={(e) => setData({ ...data, name: e.target.value })}
             required
           />
         </div>
@@ -53,9 +54,7 @@ const Register = () => {
             type="email"
             placeholder="Enter your email"
             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-            onChange={(e) =>
-              setData({ ...data, email: e.target.value })
-            }
+            onChange={(e) => setData({ ...data, email: e.target.value })}
             required
           />
         </div>
@@ -67,9 +66,7 @@ const Register = () => {
             type="password"
             placeholder="Enter your password"
             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-            onChange={(e) =>
-              setData({ ...data, password: e.target.value })
-            }
+            onChange={(e) => setData({ ...data, password: e.target.value })}
             required
           />
         </div>

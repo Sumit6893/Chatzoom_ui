@@ -4,6 +4,7 @@ import Navbar from "../Components/common/Navbar";
 import Contact from "../Components/Contact";
 import Features from "../Components/Features";
 import Hero from "../Components/Hero";
+import Dashboard from "./Dashboard";
 
 
 const Home = () => {
@@ -14,6 +15,12 @@ const Home = () => {
       <Features />
       <About />
       {/* <Testimonials /> */}
+
+
+
+
+
+      
       <Contact />
       <Footer />
     </>
