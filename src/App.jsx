@@ -6,6 +6,7 @@ import Register from "./Page/Resister";
 import Features from "./Components/Features";
 import Layout from "./Page/Layout";
 import Dashboard from "./Page/Dashboard";
+import ProtectedRoute from "./Components/ProtectedRoute";
 
 function App() {
   return (
@@ -14,13 +15,17 @@ function App() {
         {/* ✅ Layout wrapper */}
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
-          <Route path='/dashboard' element={<Dashboard/>}/> 
+          
           <Route path="features" element={<Features />} />
         </Route>
 
         {/* ❌ Without Layout (no navbar/footer) */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+
+        <Route element={<ProtectedRoute />}>
+          <Route path='/dashboard' element={<Dashboard/>}/>
+        </Route>
       </Routes>
     </BrowserRouter>
   );
