@@ -2,3 +2,9 @@
 @tailwind components;
 @tailwind utilities; */
 @import "tailwindcss";
+
+.font-display {
+  font-family: "Tangerine", cursive;
+  font-weight: 700;
+  font-style: normal;
+}

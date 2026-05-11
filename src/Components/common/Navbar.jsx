@@ -32,12 +32,12 @@ const Navbar = () => {
         </Link>
 
         {/* Desktop Menu */}
-        <div className="hidden md:flex space-x-6 font-medium">
+        <div className="hidden md:flex space-x-6 font-display">
           <Link to="/" className="hover:opacity-80">Home</Link>
           <Link to="/login" className="hover:opacity-80">Login</Link>
           <Link to="/register" className="hover:opacity-80">Register</Link>
           <Link to="/features" className="hover:opacity-80">Features</Link>
-          <Link to="/dashboard" className="hover:opacity-80">Dashboard</Link>
+          <Link to="/dashboard" className="hover:opacity-80 ">Dashboard</Link>
         </div>
 
         {/* Mobile Button */}
